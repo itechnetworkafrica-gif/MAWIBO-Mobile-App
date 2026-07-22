@@ -1,0 +1,4 @@
+- [MAWIBO notifications arch](mawibo-notifications.md) — community badge uses NotificationsContext, not profile.notifBadge; community tab clears badge on mount via markAllRead().
+- [RN flexWrap text collapse](rn-flexwrap-text-collapse.md) — flex:1 on items in a flexWrap row can squeeze width, making Text wrap letter-by-letter; put % width on the outer item instead.
+- [MAWIBO auth architecture](mawibo-auth.md) — auth moved to server-side JWT + PostgreSQL; AuthContext uses EXPO_PUBLIC_API_BASE_URL (Vercel) or EXPO_PUBLIC_DOMAIN (Replit) for API base; token stored in AsyncStorage under auth_token_v2.
+- [MAWIBO Vercel deployment](mawibo-vercel.md) — vercel.json at root; build:web runs expo export --platform web; output is artifacts/ehealthmate/dist; EXPO_PUBLIC_API_BASE_URL must be set to Replit API URL.

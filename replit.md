@@ -1,45 +1,77 @@
-# [Project name]
+# MAWIBO — Mental Health Companion App
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A full-stack mental health app for Liberia. Users track mood, find doctors by county, chat with an AI companion, join a community, and access wellness tools (journaling, breathing, CBT, sleep coach, etc.).
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/ehealthmate run dev` — run the Expo mobile/web app
+- `pnpm --filter @workspace/api-server run dev` — run the API server (port 8080)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - Required env: `DATABASE_URL` — Postgres connection string
+- Required env: `SESSION_SECRET` — JWT signing secret
+- Required env: `OPENAI_API_KEY` — for AI features
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
+- Frontend: Expo (React Native + Web), expo-router, @tanstack/react-query
+- API: Express 5, JWT auth
 - DB: PostgreSQL + Drizzle ORM
 - Validation: Zod (`zod/v4`), `drizzle-zod`
+- AI: OpenAI (via `lib/integrations-openai-ai-server`)
 - API codegen: Orval (from OpenAPI spec)
 - Build: esbuild (CJS bundle)
+- Deploy (web): Vercel (static SPA export via `expo export --platform web`)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/ehealthmate/` — Expo mobile + web app (main product)
+- `artifacts/api-server/` — Express API server (auth, AI, data)
+- `lib/db/` — Drizzle schema (source of truth for DB)
+- `lib/api-spec/openapi.yaml` — OpenAPI spec (source of truth for API contracts)
+- `lib/api-client-react/` — generated React Query hooks (do not edit manually)
+- `lib/integrations-openai-ai-server/` — OpenAI client wrapper
+- `vercel.json` — Vercel deployment config for the web SPA
+- `DEPLOY_TO_VERCEL.md` — step-by-step Vercel deployment guide
 
-## Architecture decisions
+## Vercel Deployment
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+See `DEPLOY_TO_VERCEL.md` for full instructions. Summary:
+1. Import repo on [vercel.com/new](https://vercel.com/new)
+2. Set `EXPO_PUBLIC_API_BASE_URL` to your Replit API server URL
+3. Click Deploy — no other config needed (vercel.json handles everything)
 
-## Product
+## Architecture
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+```
+Vercel (static SPA)          Replit (API server)
+  Expo web export      ──▶   Express + PostgreSQL
+  /dist                      /api routes
+```
 
-## User preferences
+## Architecture Decisions
+
+- Auth is server-side JWT + PostgreSQL (not Clerk/Replit Auth) — token stored in AsyncStorage under `auth_token_v2`
+- API base URL is injected at build time via `EXPO_PUBLIC_API_BASE_URL` (Vercel) or `EXPO_PUBLIC_DOMAIN` (Replit dev)
+- Expo Router web exports to `artifacts/ehealthmate/dist/` as a static SPA — Vercel serves it with SPA rewrites
+- Community notification badge uses `NotificationsContext`, not `profile.notifBadge`
+
+## User Preferences
 
 _Populate as you build — explicit user instructions worth remembering across sessions._
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Always run `pnpm --filter @workspace/api-spec run codegen` after changing `lib/api-spec/openapi.yaml`
+- `EXPO_PUBLIC_API_BASE_URL` must be set in Vercel env vars or all API calls will fail on the deployed web app
+- The `vercel.json` `env` block references a Vercel secret `@expo_public_api_base_url` — create this in Vercel project settings
 
 ## Pointers
 
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- See `DEPLOY_TO_VERCEL.md` for Vercel deployment steps
+- See `.agents/memory/mawibo-vercel.md` for Vercel config rationale
+- See `.agents/memory/mawibo-auth.md` for auth architecture details
+- See the `pnpm-workspace` skill for workspace structure details
