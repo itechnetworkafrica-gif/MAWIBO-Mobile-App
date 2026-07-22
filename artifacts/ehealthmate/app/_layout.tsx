@@ -13,6 +13,21 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
+import { Platform } from "react-native";
+
+// jsDelivr CDN base for @expo/vector-icons fonts.
+// On web (Vercel static hosting) the pnpm-hashed asset paths are not present
+// in the pre-built public/ directory, so we redirect icon font loading to CDN.
+const ICON_CDN =
+  "https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts";
+
+const webIconFonts =
+  Platform.OS === "web"
+    ? {
+        MaterialIcons: { uri: `${ICON_CDN}/MaterialIcons.ttf` },
+        Feather: { uri: `${ICON_CDN}/Feather.ttf` },
+      }
+    : {};
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AppProviders } from "@/contexts/AppProviders";
@@ -92,6 +107,9 @@ export default function RootLayout() {
     Inter_500Medium,
     Inter_600SemiBold,
     Inter_700Bold,
+    // Pre-load icon fonts from CDN on web so expo-font caches them before
+    // @expo/vector-icons tries to load them from broken hashed asset paths.
+    ...webIconFonts,
   });
 
   useEffect(() => {
