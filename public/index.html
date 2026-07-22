@@ -33,6 +33,45 @@
     <meta name="keywords" content="MAWIBO, mental health, Liberia, mood tracker, doctor, AI support, wellbeing" />
     <link rel="canonical" href="https://mawibo-htl.vercel.app/" />
 
+    <!-- Preconnect to CDN for faster font loading -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+
+    <!--
+      Icon fonts — load all @expo/vector-icons fonts from jsDelivr CDN.
+
+      Root cause of missing icons: Vercel serves public/ directly (no build step),
+      so the hashed asset paths like
+        /assets/__node_modules/.pnpm/@expo+vector-icons@15.1.1_.../Fonts/MaterialIcons.xxx.ttf
+      do not exist in the public/ directory. The @ and + characters in pnpm
+      asset paths also cause URL-encoding issues with some CDN/proxy layers.
+
+      Fix: declare every icon font-family via @font-face here, in <head>,
+      BEFORE the app JS executes. The font-family names match EXACTLY what
+      @expo/vector-icons registers at runtime. font-display:block prevents
+      the brief "square box" flash while fonts load.
+    -->
+    <style id="expo-icon-fonts">
+      @font-face { font-family: 'MaterialIcons'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf) format('truetype'); }
+      @font-face { font-family: 'MaterialCommunityIcons'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf) format('truetype'); }
+      @font-face { font-family: 'Feather'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/Feather.ttf) format('truetype'); }
+      @font-face { font-family: 'FontAwesome'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/FontAwesome.ttf) format('truetype'); }
+      @font-face { font-family: 'FontAwesome5_Brands'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf) format('truetype'); }
+      @font-face { font-family: 'FontAwesome5_Regular'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf) format('truetype'); }
+      @font-face { font-family: 'FontAwesome5_Solid'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf) format('truetype'); }
+      @font-face { font-family: 'FontAwesome6_Brands'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Brands.ttf) format('truetype'); }
+      @font-face { font-family: 'FontAwesome6_Regular'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Regular.ttf) format('truetype'); }
+      @font-face { font-family: 'FontAwesome6_Solid'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/FontAwesome6_Solid.ttf) format('truetype'); }
+      @font-face { font-family: 'AntDesign'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/AntDesign.ttf) format('truetype'); }
+      @font-face { font-family: 'Entypo'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/Entypo.ttf) format('truetype'); }
+      @font-face { font-family: 'EvilIcons'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/EvilIcons.ttf) format('truetype'); }
+      @font-face { font-family: 'Fontisto'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/Fontisto.ttf) format('truetype'); }
+      @font-face { font-family: 'Foundation'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/Foundation.ttf) format('truetype'); }
+      @font-face { font-family: 'Ionicons'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf) format('truetype'); }
+      @font-face { font-family: 'Octicons'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/Octicons.ttf) format('truetype'); }
+      @font-face { font-family: 'SimpleLineIcons'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/SimpleLineIcons.ttf) format('truetype'); }
+      @font-face { font-family: 'Zocial'; font-style: normal; font-weight: 400; font-display: block; src: url(https://cdn.jsdelivr.net/npm/@expo/vector-icons@15.1.1/build/vendor/react-native-vector-icons/Fonts/Zocial.ttf) format('truetype'); }
+    </style>
+
     <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
       /* These styles make the body full-height */
