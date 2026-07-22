@@ -1,10 +1,7 @@
 {
   "version": 2,
   "name": "mawibo",
-  "buildCommand": "pnpm --filter @workspace/ehealthmate run build:web",
   "outputDirectory": "artifacts/ehealthmate/dist",
-  "installCommand": "pnpm install --frozen-lockfile",
-  "framework": null,
   "rewrites": [
     {
       "source": "/((?!_expo|assets|favicon\\.png|favicon\\.ico|og-image\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml).*)",
