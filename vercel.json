@@ -1,7 +1,6 @@
 {
   "version": 2,
   "name": "mawibo",
-  "outputDirectory": "artifacts/ehealthmate/dist",
   "rewrites": [
     {
       "source": "/((?!_expo|assets|favicon\\.png|favicon\\.ico|og-image\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml).*)",
