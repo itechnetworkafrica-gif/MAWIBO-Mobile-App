@@ -1,0 +1,380 @@
+You are a senior Android engineer, full-stack developer, AI systems architect, and healthcare product designer.
+
+Build a production-ready Android mobile application called:
+
+eHealthMate LBR
+
+This is a Liberia-focused digital health platform combining:
+
+- Mental health AI support
+- Doctor booking system
+- Nationwide localization (15 counties)
+- Multi-language support (including tribal interpretation layer)
+
+The app must be scalable, lightweight, and optimized for low-end Android devices and low internet conditions.
+
+---
+
+CORE OBJECTIVES
+
+1. Provide AI-powered mental health support
+2. Enable users to book doctors across Liberia
+3. Support multiple local languages via interpretation layer
+4. Work reliably in low-bandwidth environments
+5. Be trusted, secure, and easy to use
+
+---
+
+TARGET COVERAGE (MANDATORY)
+
+Support users across all 15 counties in Liberia:
+
+- Montserrado
+- Nimba
+- Bong
+- Lofa
+- Grand Bassa
+- Margibi
+- Bomi
+- Grand Cape Mount
+- Gbarpolu
+- River Cess
+- Sinoe
+- Grand Gedeh
+- River Gee
+- Maryland
+- Grand Kru
+
+The system must allow filtering services by county.
+
+---
+
+TECH STACK (STRICT)
+
+Frontend:
+
+- React Native (Expo)
+
+Backend:
+
+- Firebase (Auth, Firestore, Storage)
+
+AI:
+
+- OpenAI API (chat + sentiment + summarization)
+
+Storage:
+
+- AsyncStorage (offline support)
+
+---
+
+DESIGN SYSTEM (STRICT)
+
+UI Style
+
+- Clean, modern, medical-grade
+- NO emojis anywhere
+- Use global icons only
+
+Icon Library
+
+- Material Icons ONLY
+
+Colors
+
+- Primary: #3A7BD5
+- Secondary: #6FCF97
+- Background: #F7F9FC
+- Text: #333
+
+Android Layout Rules
+
+- Follow Material Design principles
+- Bottom navigation (5 tabs)
+- Large touch targets
+- Minimal animations
+- Dark mode support
+
+---
+
+NAVIGATION STRUCTURE
+
+Bottom Tabs:
+
+1. Home
+2. AI Mate
+3. Book Doctor
+4. Tools
+5. Support
+
+---
+
+SCREENS (IMPLEMENT ALL)
+
+1. Onboarding
+
+- App intro
+- Select goals (stress, sleep, talk support)
+- Select county
+- Select preferred language
+- Privacy explanation
+
+---
+
+2. Home Screen
+
+Components:
+
+- Greeting
+
+- Mood selector (icon-based, no emojis):
+  
+  - Calm
+  - Okay
+  - Stressed
+  - Low
+  - Overwhelmed
+
+- Quick actions:
+  
+  - Talk to AI
+  - Book a Doctor
+  - Start Breathing
+  - Journal
+
+- AI daily insight card
+
+---
+
+3. AI Mate Screen
+
+Chat system:
+
+- Clean chat UI
+- Input + send + mic icon
+
+AI Requirements:
+
+- Simple English responses
+- Option to simplify language
+- Sentiment detection
+- Crisis detection:
+  → If risk detected, show emergency help
+
+---
+
+4. Doctor Booking System (CORE FEATURE)
+
+Doctor List Screen
+
+- Filter by:
+  
+  - County
+  - Specialty (General, Mental Health, etc.)
+
+- Doctor card:
+  
+  - Name
+  - Specialty
+  - Location (county)
+  - Availability
+
+---
+
+Doctor Profile Screen
+
+- Doctor details
+- Available time slots
+- Book button
+
+---
+
+Booking Flow
+
+- Select date
+- Select time
+- Confirm booking
+
+Store in Firebase:
+
+- user_id
+- doctor_id
+- date
+- time
+- status
+
+---
+
+My Appointments Screen
+
+- Upcoming bookings
+- Past bookings
+- Cancel option
+
+---
+
+5. Tools Screen
+
+Grid layout:
+
+- Breathing Exercise
+- Meditation
+- Journal
+- Sleep Sounds
+- Stress Tips
+
+---
+
+6. Journal Screen
+
+- Save entries locally
+- Optional AI summary
+
+---
+
+7. Support Screen
+
+Sections:
+
+- Emergency contacts
+- NGOs
+- Clinics
+- Call buttons
+
+---
+
+MULTI-LANGUAGE & TRIBAL SUPPORT (IMPORTANT)
+
+Implement a language layer system:
+
+Languages:
+
+- English (default)
+- Simple English mode
+- Placeholder for tribal languages (Bassa, Kpelle, Grebo, etc.)
+
+Features:
+
+- UI text translation system
+- AI response simplification
+- Future-ready translation mapping
+
+NOTE:
+Do NOT hardcode translations — use a translation JSON system.
+
+---
+
+CORE FEATURES
+
+1. Mood Tracking
+
+- Save daily mood
+- Show trends
+
+---
+
+2. AI System
+
+- Chat API integration
+- Sentiment analysis
+- Crisis detection trigger
+
+---
+
+3. Booking System Backend
+
+Firestore collections:
+
+- users
+- doctors
+- appointments
+
+---
+
+4. Offline Mode
+
+Must support:
+
+- Journal entries
+- Cached tools
+- Last viewed doctor list
+
+---
+
+5. Notifications
+
+- Appointment reminders
+- Daily mental health check-in
+
+---
+
+DATA STRUCTURE
+
+Users:
+
+- id
+- county
+- language
+- preferences
+
+Doctors:
+
+- id
+- name
+- specialty
+- county
+- availability
+
+Appointments:
+
+- user_id
+- doctor_id
+- date
+- time
+- status
+
+---
+
+SECURITY
+
+- Secure authentication
+- No exposed API keys
+- Basic encryption for sensitive data
+- Anonymous usage option
+
+---
+
+PERFORMANCE REQUIREMENTS
+
+- Lightweight
+- Fast loading
+- Works on low-end Android
+- Low data usage
+
+---
+
+DELIVERABLES
+
+Generate:
+
+1. Full React Native Android project
+2. All screens and navigation
+3. Firebase integration
+4. OpenAI integration
+5. Booking system logic
+6. Sample doctor data (all 15 counties)
+7. Translation-ready structure
+
+---
+
+CONSTRAINTS
+
+- NO emojis
+- MUST use icons consistently
+- MUST follow clean architecture
+- MUST be modular and scalable
+
+---
+
+Build this as a real startup-ready healthcare platform for Liberia, not a demo.

@@ -1,0 +1,391 @@
+You are a senior AI engineer, mobile app developer, and healthcare systems architect.
+
+Extend and enhance an existing mobile app called eHealthMate LBR by implementing a comprehensive AI system layer.
+
+This AI system must go beyond a simple chatbot. It must include:
+
+- Emotional intelligence
+- Personalization
+- Predictive insights
+- Safety mechanisms
+- Healthcare integration
+
+The app is designed for Liberia, so optimize for:
+
+- Low bandwidth
+- Simple English
+- Cultural relevance
+- Low-end Android devices
+
+---
+
+CORE AI SYSTEM ARCHITECTURE
+
+Build the AI as modular services:
+
+1. AI Chat Engine
+2. Sentiment Analysis Engine
+3. Mood Intelligence Engine
+4. Recommendation Engine
+5. Crisis Detection System
+6. Doctor Matching AI
+7. Journal Analysis Engine
+
+Each must be reusable and loosely coupled.
+
+---
+
+TECH REQUIREMENTS
+
+Frontend:
+
+- React Native (Expo)
+
+Backend:
+
+- Firebase (Firestore + Functions)
+
+AI:
+
+- OpenAI API (chat + classification + summarization)
+
+Local Storage:
+
+- AsyncStorage (offline fallback)
+
+---
+
+AI FEATURES TO IMPLEMENT
+
+---
+
+1. AI CHAT ENGINE (AI Mate)
+
+Create a chat system with:
+
+Features:
+
+- Context-aware conversation (store last messages)
+- Simple English responses
+- Supportive and calm tone
+- Actionable advice (not generic text)
+
+Implementation:
+
+- Maintain conversation history per session
+- Send structured prompts to OpenAI API
+
+Add predefined quick prompts:
+
+- “I feel stressed”
+- “I can’t sleep”
+- “I feel anxious”
+
+---
+
+2. SENTIMENT & EMOTION DETECTION ENGINE
+
+Input:
+
+- User messages
+- Journal entries
+
+Output:
+
+- Emotion type:
+  - stress
+  - anxiety
+  - sadness
+  - neutral
+- Intensity level (low, medium, high)
+
+Implementation:
+
+- Use OpenAI classification or prompt-based analysis
+- Return structured JSON
+
+Example output:
+{
+"emotion": "stress",
+"intensity": "high"
+}
+
+---
+
+3. AI MOOD PATTERN ANALYZER
+
+Analyze:
+
+- Mood logs over time
+- Sentiment data
+
+Output:
+
+- Weekly insights
+- Pattern detection
+
+Example:
+
+- “You feel stressed more on weekdays”
+- “Your mood improves after journaling”
+
+Store results in Firestore.
+
+---
+
+4. PREDICTIVE RISK DETECTION SYSTEM
+
+Logic:
+
+- Combine:
+  - Recent mood logs
+  - Sentiment scores
+  - Frequency of negative entries
+
+Detect:
+
+- High-risk mental state
+
+Trigger:
+
+- Show alert in UI
+- Suggest Support screen
+- Recommend immediate coping tools
+
+---
+
+5. AI RECOMMENDATION ENGINE
+
+Based on user state, recommend:
+
+- Breathing exercises
+- Journaling
+- Meditation
+- Doctor consultation
+
+Implementation:
+
+- Rule-based + AI-assisted suggestions
+
+Example:
+IF stress high → suggest breathing
+IF repeated sadness → suggest doctor booking
+
+---
+
+6. AI JOURNAL ANALYZER
+
+Input:
+
+- Journal text
+
+Output:
+
+- Summary
+- Emotional tone
+- Key themes
+
+Example:
+
+- “You have been worried about finances this week”
+
+Use OpenAI summarization prompt.
+
+---
+
+7. AI COPING STRATEGY GENERATOR
+
+Generate personalized steps:
+
+Example output:
+
+- “Take a 2-minute breathing exercise”
+- “Write down what is stressing you”
+- “Talk to someone you trust”
+
+Must be:
+
+- Short
+- Clear
+- Actionable
+
+---
+
+8. AI DAILY CHECK-IN SYSTEM
+
+Morning:
+
+- Ask how user feels
+
+Evening:
+
+- Ask reflection question
+
+Adapt questions based on past behavior.
+
+---
+
+9. AI DOCTOR MATCHING SYSTEM
+
+Input:
+
+- User symptoms (text)
+- Mood state
+- County
+
+Output:
+
+- Recommended doctor type:
+  - Mental health
+  - General doctor
+
+Implementation:
+
+- Use keyword + AI classification
+
+---
+
+10. AI PRE-CONSULTATION SUMMARY
+
+Before booking:
+
+- Collect user symptoms
+
+Generate:
+
+- Structured summary for doctor
+
+Example:
+
+- “User reports stress, poor sleep, and anxiety for 5 days”
+
+---
+
+11. AI CRISIS DETECTION SYSTEM (CRITICAL)
+
+Detect:
+
+- Self-harm language
+- Severe distress
+
+Trigger:
+
+- Immediate alert popup
+- Redirect to Support screen
+- Show emergency contacts
+
+Must override all other UI.
+
+---
+
+12. AI LANGUAGE SIMPLIFIER
+
+Convert:
+
+- Complex English → Simple English
+
+Use AI prompt:
+
+- “Rewrite this in very simple English”
+
+---
+
+13. OFFLINE AI FALLBACK
+
+When no internet:
+
+- Use predefined responses
+- Basic keyword detection
+
+Store fallback data locally.
+
+---
+
+DATA FLOW
+
+User Input →
+AI Chat →
+Sentiment Analysis →
+Risk Detection →
+Recommendation Engine →
+UI Response
+
+---
+
+FIREBASE STRUCTURE
+
+collections:
+
+users
+
+- id
+- preferences
+
+mood_logs
+
+- user_id
+- date
+- mood
+
+journal_entries
+
+- text
+- ai_summary
+
+ai_insights
+
+- weekly_summary
+- risk_level
+
+---
+
+PERFORMANCE RULES
+
+- Minimize API calls
+- Cache responses when possible
+- Keep payloads small
+- Optimize for low bandwidth
+
+---
+
+SECURITY
+
+- Do not expose API keys
+- Use environment variables
+- Do not store sensitive data unnecessarily
+
+---
+
+UI INTEGRATION RULES
+
+- Show AI insights in Home screen
+- Show alerts for risk detection
+- Show recommendations as cards
+- No emojis — use icons only
+
+---
+
+DELIVERABLES
+
+Generate:
+
+1. AI service modules (modular code)
+2. API integration functions
+3. Sample prompts for OpenAI
+4. Data models
+5. Integration into existing screens
+6. Example responses
+7. Error handling
+
+---
+
+CONSTRAINTS
+
+- Keep system modular
+- Avoid overengineering
+- Ensure fast performance
+- Ensure safe outputs
+
+---
+
+Build this as a real AI-powered healthcare intelligence layer, not a basic chatbot system.

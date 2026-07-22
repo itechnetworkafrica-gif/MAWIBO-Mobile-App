@@ -1,0 +1,362 @@
+ADVANCED APP UPGRADE & FEATURE ENHANCEMENT PROMPT
+
+We already have a fully functional Mental Health App running in Replit. We DO NOT want a new app built from scratch.
+
+Your task is to UPGRADE, ENHANCE, RESTRUCTURE, and MODERNIZE the existing application by implementing the following advanced features, UI improvements, backend systems, dashboards, and AI functionalities while preserving current app functionality and database integrity.
+
+The final result should feel like a premium enterprise-level AI Mental Health Super App.
+
+---
+
+IMPORTANT INSTRUCTIONS
+
+- Do NOT rebuild the app from scratch.
+- Preserve existing authentication, database structure, and current features where possible.
+- Upgrade the UI/UX to modern premium standards.
+- Optimize the codebase for scalability and performance.
+- Ensure all new features are mobile responsive and production ready.
+- Use reusable components and clean architecture.
+- Replace outdated UI elements with professional modern components.
+- Use GLOBAL ICON libraries only (Lucide, Heroicons, Material UI Icons, Font Awesome). DO NOT use emojis in the UI.
+
+---
+
+1. ADVANCED HEADER & NAVIGATION SYSTEM
+
+Upgrade the current header/navbar into a premium responsive navigation system containing:
+
+- Hamburger Menu Icon
+- Notification Bell
+- Global Search Tool
+- User Profile Avatar
+- Dynamic Navigation Tabs
+- Smooth Popup Menu
+- Sticky Header
+- Mobile Responsive Design
+
+The popup menu should contain:
+
+- Settings
+- Theme Settings
+- Notifications
+- AI Tools
+- Community
+- Booking
+- Saved Posts
+- Support Center
+- Profile
+- Security
+- Logout
+- Admin Dashboard access (for authorized users)
+
+Use smooth animations, glassmorphism effects, hover states, and premium transitions.
+
+---
+
+2. DEFAULT DARK THEME SYSTEM
+
+Implement a professional global dark mode system:
+
+- Set Dark Mode as default
+- Add Light/Dark/System Theme Toggle
+- Save theme preferences permanently
+- Add smooth animated transitions
+- Use premium modern color palettes
+- Improve accessibility and readability
+
+---
+
+3. BLOG SLIDER ON HOME SCREEN
+
+Add a horizontal sliding blog/news section at the bottom of the home screen.
+
+Requirements:
+
+- Real high-quality images
+- Auto-scroll carousel
+- Swipe support for mobile
+- Blog preview cards
+- Read More functionality
+- Categories and tags
+- Like/share/save system
+- Dynamic content loading
+
+Admins should later manage these posts from the dashboard without touching code.
+
+---
+
+4. COMMUNITY & SOCIAL PLATFORM
+
+Transform the app into a real community platform where users can:
+
+- Create posts
+- Upload profile pictures
+- Edit names/settings
+- Follow users
+- Like/comment/share posts
+- Real-time chat messaging
+- Group chats
+- Send images/files
+- Voice notes
+- Audio calls
+- Video calls
+- Online/offline indicators
+- Typing indicators
+- Story/status system
+- Notifications
+
+Use real-time systems such as:
+
+- Socket.IO
+- Firebase Realtime
+- WebRTC
+
+The experience should feel modern and similar to Discord + WhatsApp + Facebook Communities.
+
+---
+
+5. LIVE AGENT / 24-7 SUPPORT SYSTEM
+
+Implement a professional live support system:
+
+- Live support chat
+- AI + Human support agents
+- Emergency assistance button
+- Ticket system
+- Chat history
+- Real-time support dashboard
+- Smart AI auto-replies before human takeover
+- Audio/video support capability
+
+This system should be integrated throughout the app.
+
+---
+
+6. ADMIN & SUPER ADMIN DASHBOARDS
+
+Upgrade the admin system into enterprise-level dashboards.
+
+ADMIN DASHBOARD FEATURES
+
+- User management
+- Community moderation
+- Blog management
+- Booking management
+- Notifications management
+- Reports and analytics
+- AI tools management
+- Support system management
+- Doctor registration
+- Hospital registration
+- Clinic registration
+
+SUPER ADMIN FEATURES
+
+- Full application control
+- Role & permissions management
+- Technical settings
+- Security management
+- Database tools
+- API configuration
+- Logs and monitoring
+- Feature toggles
+- Global app settings
+- Subscription/payment management
+- System troubleshooting tools
+
+Use professional dashboard layouts with:
+
+- Charts
+- Cards
+- Tables
+- Analytics
+- Filters
+- Activity logs
+
+---
+
+7. ADD 25 AI TOOLS & AI AGENTS
+
+Integrate 25 advanced AI-powered tools into the app.
+
+Examples include:
+
+- AI Therapist
+- Mood Analyzer
+- Anxiety Support AI
+- Meditation Coach
+- Sleep Assistant
+- CBT Assistant
+- Journal Analyzer
+- Crisis Support AI
+- AI Chat Companion
+- Wellness Recommendation AI
+- Daily Motivation AI
+- Productivity Coach
+- Goal Tracker
+- Gratitude AI
+- Guided Breathing Coach
+- AI Voice Assistant
+- Personalized Mental Health Reports
+
+Requirements:
+
+- Modern AI cards
+- Chat interfaces
+- Voice support
+- Conversation history
+- Personalized responses
+- Secure AI interactions
+
+Organize all AI tools into a professional AI Hub section.
+
+---
+
+8. CMS BLOG MANAGEMENT SYSTEM
+
+Create a full CMS inside the Admin Dashboard so admins can:
+
+- Create blog posts
+- Edit blog posts
+- Delete posts
+- Upload images
+- Publish/unpublish posts
+- Schedule content
+- Add categories/tags
+- Moderate comments
+
+Admins must NOT need access to the development environment to manage content.
+
+---
+
+9. ENHANCED USER PROFILE SYSTEM
+
+Upgrade user accounts with:
+
+- Profile photo uploads
+- Editable usernames
+- Editable bios
+- Privacy settings
+- Notification settings
+- Password updates
+- Activity history
+- Saved posts
+- Security settings
+- Two-factor authentication
+
+Ensure profile pages look modern and premium.
+
+---
+
+10. ADVANCED BOOKING SYSTEM
+
+Completely modernize the booking system.
+
+Requirements:
+
+- Doctor booking
+- Therapist booking
+- Hospital booking
+- Clinic booking
+- Real-time availability
+- Calendar integration
+- Time-slot management
+- Video consultation scheduling
+- Automated reminders
+- Booking history
+- Reschedule/cancel system
+- Ratings/reviews
+- Queue management
+
+The booking experience should feel enterprise-level and highly professional.
+
+---
+
+11. DOCTOR / HOSPITAL MANAGEMENT SYSTEM
+
+Admins should be able to:
+
+- Register doctors
+- Register therapists
+- Register hospitals
+- Register clinics
+- Manage approvals
+- Add specialties
+- Upload certifications
+- Set availability schedules
+- Manage pricing
+- View analytics
+
+Doctors should have separate dashboard access.
+
+---
+
+12. GLOBAL ICON REPLACEMENT
+
+Replace all emoji-based UI elements with professional icon libraries:
+
+- Lucide Icons
+- Heroicons
+- Material UI Icons
+- Font Awesome
+
+Maintain consistent icon sizing and styling across the app.
+
+---
+
+13. ADVANCED POPUP MENU
+
+Upgrade the popup menu system with:
+
+- Smooth animations
+- Glassmorphism design
+- Blur effects
+- Mobile optimization
+- Nested settings
+- Quick access tools
+- User shortcuts
+
+This popup should become the central navigation experience of the app.
+
+---
+
+PERFORMANCE & SECURITY REQUIREMENTS
+
+Optimize:
+
+- Loading speed
+- Database queries
+- API calls
+- Image optimization
+- Lazy loading
+- Component reusability
+
+Implement:
+
+- Role-based permissions
+- Secure authentication
+- Encrypted messaging
+- API protection
+- Rate limiting
+- Audit logs
+- Secure admin authorization
+
+---
+
+FINAL GOAL
+
+Upgrade the current app into a world-class AI-powered Mental Health Super Platform that combines:
+
+- Social community features
+- AI mental health assistants
+- Live support systems
+- Professional healthcare booking
+- Real-time communication
+- Enterprise admin management
+- Modern premium UI/UX
+- Scalable architecture
+
+The app should feel like a combination of:
+BetterHelp + Calm + Discord + WhatsApp + Facebook + Headspace + Meta AI
+
+while keeping the existing application structure functional and optimized.

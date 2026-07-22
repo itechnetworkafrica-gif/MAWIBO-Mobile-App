@@ -1,0 +1,2 @@
+- [MAWIBO notifications arch](mawibo-notifications.md) — community badge uses NotificationsContext, not profile.notifBadge; community tab clears badge on mount via markAllRead().
+- [RN flexWrap text collapse](rn-flexwrap-text-collapse.md) — flex:1 on items in a flexWrap row can squeeze width, making Text wrap letter-by-letter; put % width on the outer item instead.

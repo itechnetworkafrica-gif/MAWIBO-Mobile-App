@@ -1,0 +1,185 @@
+You are a senior React Native engineer and mobile UX designer.
+
+Enhance the eHealthMate LBR app header by adding a navigation drawer (hamburger menu) that reveals additional features, settings, and tools.
+
+This must follow modern Android (Material Design) standards and maintain a clean, professional healthcare UI.
+
+---
+
+CORE FEATURE
+
+Add a hamburger menu button in the header that opens a side navigation drawer.
+
+---
+
+HEADER UPDATE
+
+Left Section
+
+Replace or extend:
+
+- Add hamburger menu icon (Material Icons: "menu")
+
+Behavior:
+
+- On tap → open side drawer
+
+---
+
+DRAWER (SIDE MENU) DESIGN
+
+Layout
+
+- Slide-in from left
+- Covers ~75–85% of screen width
+- Smooth animation
+
+Background
+
+- Light: White
+- Dark mode: #121212
+
+---
+
+TOP SECTION (USER AREA)
+
+Include:
+
+- App name: eHealthMate LBR
+- Optional user avatar (circle placeholder)
+- User name (or “Guest User”)
+
+---
+
+MENU ITEMS (WITH ICONS)
+
+Use Material Icons only.
+
+Group items clearly:
+
+MAIN
+
+- Home (home icon)
+- AI Mate (chat icon)
+- Book Doctor (calendar or medical icon)
+- Tools (grid icon)
+
+---
+
+HEALTH FEATURES
+
+- Mood Tracker (insert chart icon)
+- Journal (description icon)
+- Breathing Exercise (air icon)
+- Sleep Support (moon icon)
+
+---
+
+SERVICES
+
+- My Appointments (event icon)
+- Find Clinics (location icon)
+
+---
+
+SETTINGS
+
+- Language (language icon)
+- Notifications (notifications icon)
+- Dark Mode Toggle (dark_mode icon)
+- Privacy & Security (shield icon)
+
+---
+
+SUPPORT
+
+- Help Center (help icon)
+- Emergency Contacts (warning icon)
+
+---
+
+INTERACTION RULES
+
+- Tap item → navigate to screen
+- Highlight active screen
+- Close drawer after selection
+
+---
+
+UI DESIGN RULES
+
+- Icon + text alignment (left aligned)
+- Consistent spacing (16dp padding)
+- Divider lines between sections
+- No emojis anywhere
+
+---
+
+ANIMATIONS
+
+- Smooth slide-in/out
+- Backdrop overlay (dim background)
+- Tap outside → close drawer
+
+---
+
+ACCESSIBILITY
+
+- Touch targets ≥ 48dp
+- Clear labels for all items
+- High contrast text
+
+---
+
+CODE REQUIREMENTS
+
+Use:
+
+- React Navigation (Drawer Navigator)
+
+Generate:
+
+1. Drawer Navigator setup
+2. Custom Drawer Content component
+3. Header integration (menu button opens drawer)
+4. Navigation linking to screens
+5. Active state styling
+6. Dark mode support
+
+---
+
+STRUCTURE
+
+/navigation
+
+- DrawerNavigator.js
+- CustomDrawerContent.js
+
+/components
+
+- Header.js (updated with menu button)
+
+---
+
+CONSTRAINTS
+
+- Must be modular and reusable
+- Must not break existing navigation
+- Must follow clean architecture
+- Must be optimized for performance
+
+---
+
+DELIVERABLE
+
+Provide:
+
+1. Full Drawer Navigation implementation
+2. Header with working hamburger button
+3. Styled drawer UI
+4. Example screens connected
+5. Clean, readable code
+
+---
+
+This drawer should feel like a professional healthcare app navigation system, not a basic menu.

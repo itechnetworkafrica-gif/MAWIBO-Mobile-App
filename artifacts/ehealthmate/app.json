@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "MAWIBO",
+    "slug": "ehealthmate",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "mawibo",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0D1B3E"
+    },
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "softwareKeyboardLayoutMode": "adjustResize",
+      "edgeToEdgeLayoutEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://replit.com/"
+        }
+      ],
+      "expo-font",
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
