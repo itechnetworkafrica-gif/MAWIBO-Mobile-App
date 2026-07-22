@@ -1,6 +1,10 @@
 {
   "version": 2,
   "name": "mawibo",
+  "framework": null,
+  "buildCommand": "",
+  "installCommand": "",
+  "outputDirectory": "public",
   "rewrites": [
     {
       "source": "/((?!_expo|assets|favicon\\.png|favicon\\.ico|og-image\\.png|manifest\\.json|robots\\.txt|sitemap\\.xml).*)",
