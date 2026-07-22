@@ -14,14 +14,26 @@
       "backgroundColor": "#0D1B3E"
     },
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.mawibo.app"
     },
     "android": {
       "softwareKeyboardLayoutMode": "adjustResize",
-      "edgeToEdgeLayoutEnabled": true
+      "edgeToEdgeLayoutEnabled": true,
+      "package": "com.mawibo.app"
     },
     "web": {
-      "favicon": "./assets/images/icon.png"
+      "favicon": "./assets/images/icon.png",
+      "name": "MAWIBO",
+      "shortName": "MAWIBO",
+      "description": "Your friendly mental health companion built for Liberia. Track your mood, find a doctor in your county, and get AI-powered support whenever you need it.",
+      "lang": "en",
+      "themeColor": "#3A7BD5",
+      "backgroundColor": "#1A1F2E",
+      "display": "standalone",
+      "orientation": "portrait",
+      "scope": "/",
+      "startUrl": "/"
     },
     "plugins": [
       [

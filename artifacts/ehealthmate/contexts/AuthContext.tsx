@@ -6,13 +6,26 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { readJson, writeJson } from "@/lib/storage";
+
+// ── Types ─────────────────────────────────────────────────────────────────
 
 export interface LocalUser {
   id: string;
   username: string;
   email: string;
-  passwordHash: string;
+  passwordHash: string; // empty string for server-auth users
+  county: string;
+  bio: string;
+  avatarColor: string;
+  joinedAt: number;
+}
+
+interface ServerUser {
+  id: string;
+  username: string;
+  email: string;
   county: string;
   bio: string;
   avatarColor: string;
@@ -23,94 +36,133 @@ interface AuthContextValue {
   user: LocalUser | null;
   allUsers: LocalUser[];
   isLoading: boolean;
-  register: (username: string, email: string, password: string, county?: string) => Promise<void>;
+  register: (
+    username: string,
+    email: string,
+    password: string,
+    county?: string
+  ) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   updateUser: (updates: Partial<LocalUser>) => void;
 }
 
+// ── Constants ─────────────────────────────────────────────────────────────
+
 const AuthContext = createContext<AuthContextValue | null>(null);
-
 const USERS_KEY = "auth_users_v1";
-const SESSION_KEY = "auth_session_v1";
+const TOKEN_KEY = "auth_token_v2";
 
-const AVATAR_COLORS = [
-  "#3A7BD5", "#6FCF97", "#7C5DB8", "#E07A5F",
-  "#E0A800", "#5C97E0", "#27AE60", "#E03E3E",
-];
+// ── Helpers ───────────────────────────────────────────────────────────────
 
-function simpleHash(s: string): string {
-  let hash = 0;
-  for (let i = 0; i < s.length; i++) {
-    hash = (hash << 5) - hash + s.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash).toString(36);
+function getApiBase(): string {
+  // For Vercel / standalone deployments, use explicit API base URL
+  const apiBase = process.env.EXPO_PUBLIC_API_BASE_URL;
+  if (apiBase) return apiBase.replace(/\/$/, "");
+  // In Replit dev/production, use the dev domain
+  const domain = process.env.EXPO_PUBLIC_DOMAIN;
+  if (!domain) return "";
+  return `https://${domain}`;
 }
+
+function serverToLocal(su: ServerUser): LocalUser {
+  return { ...su, passwordHash: "" };
+}
+
+async function authFetch<T>(
+  path: string,
+  options: RequestInit = {}
+): Promise<T> {
+  const base = getApiBase();
+  const res = await fetch(`${base}${path}`, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers ?? {}),
+    },
+  });
+  const data = (await res.json()) as T & { error?: string };
+  if (!res.ok) {
+    throw new Error((data as { error?: string }).error ?? "Request failed.");
+  }
+  return data;
+}
+
+// ── Provider ──────────────────────────────────────────────────────────────
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<LocalUser | null>(null);
   const [allUsers, setAllUsers] = useState<LocalUser[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Restore session on mount
   useEffect(() => {
-    Promise.all([
-      readJson<LocalUser[]>(USERS_KEY, []),
-      readJson<string>(SESSION_KEY, ""),
-    ]).then(([users, sessionId]) => {
-      setAllUsers(users ?? []);
-      if (sessionId) {
-        const found = (users ?? []).find((u) => u.id === sessionId) ?? null;
-        setUser(found);
+    (async () => {
+      try {
+        const [token, localUsers] = await Promise.all([
+          AsyncStorage.getItem(TOKEN_KEY),
+          readJson<LocalUser[]>(USERS_KEY, []),
+        ]);
+        setAllUsers(localUsers ?? []);
+
+        if (token) {
+          try {
+            const data = await authFetch<{ user: ServerUser }>("/api/auth/me", {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            setUser(serverToLocal(data.user));
+          } catch {
+            // Token expired or network error — clear it
+            await AsyncStorage.removeItem(TOKEN_KEY);
+          }
+        }
+      } catch {
+        // Storage error — start fresh
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    });
+    })();
   }, []);
 
   const register = useCallback(
-    async (username: string, email: string, password: string, county = "") => {
-      const users = await readJson<LocalUser[]>(USERS_KEY, []) ?? [];
-      const emailLower = email.trim().toLowerCase();
-      if (users.some((u) => u.email === emailLower)) {
-        throw new Error("An account with this email already exists.");
-      }
-      if (users.some((u) => u.username.toLowerCase() === username.trim().toLowerCase())) {
-        throw new Error("That username is already taken.");
-      }
-      const newUser: LocalUser = {
-        id: `user-${Date.now()}`,
-        username: username.trim(),
-        email: emailLower,
-        passwordHash: simpleHash(emailLower + password),
-        county,
-        bio: "",
-        avatarColor: AVATAR_COLORS[users.length % AVATAR_COLORS.length]!,
-        joinedAt: Date.now(),
-      };
-      const updated = [...users, newUser];
-      await writeJson(USERS_KEY, updated);
-      await writeJson(SESSION_KEY, newUser.id);
-      setAllUsers(updated);
+    async (
+      username: string,
+      email: string,
+      password: string,
+      county = ""
+    ) => {
+      const data = await authFetch<{ user: ServerUser; token: string }>(
+        "/api/auth/register",
+        {
+          method: "POST",
+          body: JSON.stringify({ username, email, password, county }),
+        }
+      );
+      await AsyncStorage.setItem(TOKEN_KEY, data.token);
+      const newUser = serverToLocal(data.user);
       setUser(newUser);
+      // Cache in local list for community display
+      setAllUsers((prev) => [...prev, newUser]);
+      const existing = (await readJson<LocalUser[]>(USERS_KEY, [])) ?? [];
+      await writeJson(USERS_KEY, [...existing, newUser]);
     },
-    [],
+    []
   );
 
   const login = useCallback(async (email: string, password: string) => {
-    const users = await readJson<LocalUser[]>(USERS_KEY, []) ?? [];
-    const emailLower = email.trim().toLowerCase();
-    const found = users.find((u) => u.email === emailLower);
-    if (!found) throw new Error("No account found with that email.");
-    if (found.passwordHash !== simpleHash(emailLower + password)) {
-      throw new Error("Incorrect password.");
-    }
-    await writeJson(SESSION_KEY, found.id);
-    setUser(found);
-    setAllUsers(users);
+    const data = await authFetch<{ user: ServerUser; token: string }>(
+      "/api/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      }
+    );
+    await AsyncStorage.setItem(TOKEN_KEY, data.token);
+    setUser(serverToLocal(data.user));
   }, []);
 
   const logout = useCallback(() => {
-    writeJson(SESSION_KEY, "");
+    AsyncStorage.removeItem(TOKEN_KEY).catch(() => {});
     setUser(null);
   }, []);
 
@@ -118,18 +170,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser((prev) => {
       if (!prev) return null;
       const updated = { ...prev, ...updates };
-      readJson<LocalUser[]>(USERS_KEY, []).then((users) => {
-        const next = (users ?? []).map((u) => (u.id === updated.id ? updated : u));
-        writeJson(USERS_KEY, next);
-        setAllUsers(next);
-      });
+
+      // Sync to server in the background (best-effort)
+      (async () => {
+        try {
+          const token = await AsyncStorage.getItem(TOKEN_KEY);
+          if (!token) return;
+          await authFetch("/api/auth/me", {
+            method: "PATCH",
+            headers: { Authorization: `Bearer ${token}` },
+            body: JSON.stringify({
+              bio: updates.bio,
+              county: updates.county,
+              avatarColor: updates.avatarColor,
+            }),
+          });
+        } catch {
+          // Ignore — local state is already updated
+        }
+      })();
+
+      // Update local list for community display
+      setAllUsers((prev) => prev.map((u) => (u.id === updated.id ? updated : u)));
       return updated;
     });
   }, []);
 
   const value = useMemo(
     () => ({ user, allUsers, isLoading, register, login, logout, updateUser }),
-    [user, allUsers, isLoading, register, login, logout, updateUser],
+    [user, allUsers, isLoading, register, login, logout, updateUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

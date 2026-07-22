@@ -22,6 +22,10 @@ export interface ChatResponse {
 }
 
 function getBaseUrl(): string {
+  // For Vercel / standalone deployments: explicit full API base URL
+  const apiBase = process.env.EXPO_PUBLIC_API_BASE_URL;
+  if (apiBase) return apiBase.replace(/\/$/, "");
+  // Replit dev/production: derive from domain
   const domain = process.env.EXPO_PUBLIC_DOMAIN;
   if (!domain) return "";
   return `https://${domain}`;
